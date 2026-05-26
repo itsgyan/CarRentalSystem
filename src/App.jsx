@@ -272,7 +272,7 @@ function App() {
   if (loading) {
     return (
       <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)', color: 'var(--text-secondary)' }}>
-        Loading Car Rental Engine...
+        Loading ApexDrive Fleet Engine...
       </div>
     );
   }
@@ -311,7 +311,7 @@ function App() {
             letterSpacing: '0.15em',
             color: 'var(--text-primary)'
           }}>
-            CAR RENTAL
+            APEXDRIVE
           </span>
         </div>
 
@@ -1105,7 +1105,7 @@ function App() {
         fontSize: '12px',
         color: 'var(--text-muted)'
       }}>
-        &copy; {new Date().getFullYear()} Car Rental Application. High-Fidelity Glassmorphic Obsidian Design. All simulated payments skipped.
+        &copy; {new Date().getFullYear()} ApexDrive. High-Fidelity Glassmorphic Obsidian Design. All simulated payments skipped.
       </footer>
 
     </div>
