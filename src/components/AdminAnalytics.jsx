@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { DollarSign, ShieldAlert, Car, Users, Calendar, Check, X, UserCheck, Plus, Trash, Eye, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
+const API_BASE = 'https://carrentalsystem-yczy.onrender.com/api';
+const UPLOADS_BASE = 'https://carrentalsystem-yczy.onrender.com';
+
 export const AdminAnalytics = () => {
   const { user } = useAuth();
   const [analytics, setAnalytics] = useState(null);
@@ -41,17 +44,17 @@ export const AdminAnalytics = () => {
       const headers = { 'Authorization': `Bearer ${user.token}` };
 
       // 1. Fetch Analytics
-      const resAnalytic = await fetch('http://localhost:5000/api/admin/analytics', { headers });
+      const resAnalytic = await fetch(`${API_BASE}/admin/analytics`, { headers });
       const analyticData = await resAnalytic.json();
       if (analyticData.success) setAnalytics(analyticData.data);
 
       // 2. Fetch Bookings
-      const resBookings = await fetch('http://localhost:5000/api/admin/bookings', { headers });
+      const resBookings = await fetch(`${API_BASE}/admin/bookings`, { headers });
       const bookingData = await resBookings.json();
       if (bookingData.success) setBookings(bookingData.data);
 
       // 3. Fetch Users
-      const resUsers = await fetch('http://localhost:5000/api/admin/users', { headers });
+      const resUsers = await fetch(`${API_BASE}/admin/users`, { headers });
       const usersData = await resUsers.json();
       if (usersData.success) setUsersList(usersData.data);
 
@@ -69,7 +72,7 @@ export const AdminAnalytics = () => {
   // Handle Booking Status Transitions
   const handleUpdateStatus = async (bookingId, status, reason = '') => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/bookings/${bookingId}/status`, {
+      const res = await fetch(`${API_BASE}/admin/bookings/${bookingId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +96,7 @@ export const AdminAnalytics = () => {
   // Handle Manual User License Verification
   const handleVerifyUser = async (userId, isVerified) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/verify`, {
+      const res = await fetch(`${API_BASE}/admin/users/${userId}/verify`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +144,7 @@ export const AdminAnalytics = () => {
         images: newCar.image1 ? [newCar.image1] : []
       };
 
-      const res = await fetch('http://localhost:5000/api/admin/cars', {
+      const res = await fetch(`${API_BASE}/admin/cars`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -180,7 +183,7 @@ export const AdminAnalytics = () => {
   const handleDeleteCar = async (carId) => {
     if (!confirm('Are you sure you want to remove this vehicle from the active fleet catalog? This will drop related bookings.')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/cars/${carId}`, {
+      const res = await fetch(`${API_BASE}/admin/cars/${carId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${user.token}`
@@ -807,7 +810,7 @@ export const AdminAnalytics = () => {
                     <td style={{ padding: '12px' }}>
                       {u.drivingLicenseUrl ? (
                         <a 
-                          href={`http://localhost:5000${u.drivingLicenseUrl}`} 
+                          href={`${UPLOADS_BASE}${u.drivingLicenseUrl}`} 
                           target="_blank" 
                           rel="noreferrer"
                           style={{ color: 'var(--accent-secondary)', textDecoration: 'none', display:'flex', alignItems:'center', gap:'4px' }}

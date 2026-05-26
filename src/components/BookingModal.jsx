@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { X, Calendar, MapPin, Tag, ChevronRight, FileText, CheckCircle2, AlertTriangle, UploadCloud } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
+const API_BASE = 'https://carrentalsystem-yczy.onrender.com/api';
+
 export const BookingModal = ({ car, onClose, onBookingSuccess }) => {
   const { user, uploadLicense } = useAuth();
   const [step, setStep] = useState(1);
@@ -187,7 +189,7 @@ export const BookingModal = ({ car, onClose, onBookingSuccess }) => {
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const res = await fetch(`${API_BASE}/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

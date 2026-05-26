@@ -10,6 +10,9 @@ import {
   UserCheck, Clock, ShieldAlert, X, ChevronRight, RefreshCw, FileText, CheckCircle 
 } from 'lucide-react';
 
+const API_BASE = 'https://carrentalsystem-yczy.onrender.com/api';
+const UPLOADS_BASE = 'https://carrentalsystem-yczy.onrender.com';
+
 function App() {
   const { 
     user, loading, notifications, login, register, logout, 
@@ -79,7 +82,7 @@ function App() {
       if (startDate) queryParams.append('startDate', startDate);
       if (endDate) queryParams.append('endDate', endDate);
 
-      const res = await fetch(`http://localhost:5000/api/cars?${queryParams.toString()}`);
+      const res = await fetch(`${API_BASE}/cars?${queryParams.toString()}`);
       const result = await res.json();
       if (result.success) {
         setCars(result.data);
@@ -96,7 +99,7 @@ function App() {
     if (!user) return;
     setBookingLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/bookings/my-bookings', {
+      const res = await fetch(`${API_BASE}/bookings/my-bookings`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -143,7 +146,7 @@ function App() {
     setAuthError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch(`${API_BASE}/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -179,7 +182,7 @@ function App() {
   const handleCancelBooking = async (bookingId) => {
     if (!confirm('Are you sure you want to cancel this reservation request?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/cancel`, {
+      const res = await fetch(`${API_BASE}/bookings/${bookingId}/cancel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -204,7 +207,7 @@ function App() {
     setExtError('');
 
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${extBookingId}/extend`, {
+      const res = await fetch(`${API_BASE}/bookings/${extBookingId}/extend`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -229,7 +232,7 @@ function App() {
   // Fetch and display Invoice Receipt
   const handleFetchInvoice = async (bookingId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${bookingId}/invoice`, {
+      const res = await fetch(`${API_BASE}/bookings/${bookingId}/invoice`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -1013,7 +1016,7 @@ function App() {
                       
                       {user.drivingLicenseUrl && (
                         <a 
-                          href={`http://localhost:5000${user.drivingLicenseUrl}`} 
+                          href={`${UPLOADS_BASE}${user.drivingLicenseUrl}`} 
                           target="_blank" 
                           rel="noreferrer"
                           style={{ color: 'var(--accent-secondary)', textDecoration: 'none', fontSize:'12px', fontWeight:'600' }}
