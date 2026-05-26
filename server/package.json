@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "seed": "node src/scripts/seeder.js"
+    "seed": "node src/scripts/seeder.js",
+    "build": "echo 'No compilation required for Express API'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
